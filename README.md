@@ -5,6 +5,61 @@ The conflict between Israel and Hamas has been ongoing for a very long time now.
 # The Problem
 There were several questions placed before the member countries, with regards to this motion. A given country was free to vote in any way for each of the questions, i.e., either support or fail to support. Considering that there are over 100 countries, pronouncing themselves on more than one issue, it can be difficult to identify patterns in voting. 
 Principal component analysis (PCA) is a machine learning dimensionality reduction technique that can come in handy in such a scenario. We can reduce noise and focus on only the important factors.
+# Workings
+```
+{
+library(magrittr)
+library(tidyverse)
+install.packages("globals")
+library(globals)
+library(recipes)
+##Part 1: Unsupervised Learning
+#Importing 2 data files (unvotes.csv and issues.csv.) from a GitHub repository
+unvote_1 <- read.csv('C:\\Users\\ADMN\\Desktop\\ricoh\\UN_VOTE.csv')
+issues_1 <- read.csv('C:\\Users\\ADMN\\Desktop\\ricoh\\ISSUES.csv')
+
+
+##create a dataframe named unvote_2 comprising columns /country, rcid, and vote/
+#change column vote to a factor using mutate fn, with levels /no, abstain, and yes/
+#create column /rcid/ by appending prefix /rcid_/ to values of column rcid
+# pivot data from long to wide format using "rcid" as column names and "vote" as the values.
+
+unvote_2 <- unvote_1 %>%
+  select(country,rcid,vote)%>%
+  mutate(vote = factor(vote, levels = c  ("no","abstain","yes")),
+         vote = as.numeric(vote),
+         rcid = paste0("rcid_", rcid)) %>%
+  pivot_wider(names_from = "rcid",values_from = "vote", values_fill = 2)
+
+
+#conducting PCA
+#create a recipe for PCA. 
+#change the role of "country" column to "id" implying that it is treated as as identifier variable rather than a predictor in the analysis.
+#Normalize all predictor variables
+#use "step_pca" function to perform PCA.
+#store the resulting PCA recipe in the "pca_prep" object.
+
+pca_rec <- recipe(~ ., data = unvote_2)%>%
+  update_role(country, new_role = "id")%>%
+  step_normalize(all_predictors())%>%
+  step_pca(all_predictors())
+pca_prep <- prep(pca_rec)
+
+#apply the PCA recipe to the "unvote_2" data frame using the /bake/ fn.
+#use ggplot to generate a scatter plot and present PC1 and PC2 on the x and y axes
+#label each point with the corresponding country name.
+#use violet colour for points
+#use /check_overlap and hjuhttp://127.0.0.1:23597/graphics/plot_zoom_png?width=1315&height=708st/ fn to adjust labels
+
+bake(pca_prep, new_data = NULL)%>%
+  ggplot(aes(PC1, PC2, label = country)) +
+  geom_point(color = "violetred2", alpha = 0.7, size = 2) +
+  geom_text(check_overlap = TRUE, hjust = "inward")
+
+}
+```
+
+
 # Results 
 PCA helps to identify patterns in high-dimensional data, and project them on lower-dimensional space as seen in the plot below.
 {plot}
