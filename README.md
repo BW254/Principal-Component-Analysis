@@ -1,4 +1,4 @@
-# Principal-Component-Analysis
+# Principal-Component-Analysis in R
 ## Background-
 The conflict between Israel and Hamas has been ongoing for a very long time now. In 2021, Palestine moved a motion calling an end to Israel's occupation of Palestinian territories to the UN General Assembly. Of the 147 votes cast, 139 were in favour of this motion, 9 were against it, while 41 countries abstained from voting.
 
@@ -6,7 +6,7 @@ The conflict between Israel and Hamas has been ongoing for a very long time now.
 There were several questions placed before the member countries, with regards to this motion. A given country was free to vote in any way for each of the questions, i.e., either support or fail to support. Considering that there are over 100 countries, pronouncing themselves on more than one issue, it can be difficult to identify patterns in voting. 
 Principal component analysis (PCA) is a machine learning dimensionality reduction technique that can come in handy in such a scenario. We can reduce noise and focus on only the important factors.
 # Workings
-```
+``` R
 {
 library(magrittr)
 library(tidyverse)
