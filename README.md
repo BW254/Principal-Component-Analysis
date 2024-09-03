@@ -7,8 +7,8 @@ There were several questions placed before the member countries, with regards to
 Principal component analysis (PCA) is a machine learning dimensionality reduction technique that can come in handy in such a scenario. We can reduce noise and focus on only the important factors.
 # Results 
 PCA helps to identify patterns in high-dimensional data, and project them on lower-dimensional space as seen in the plot below.
-
 {plot}
+![PCA](https://github.com/user-attachments/assets/e2c61a04-9f43-41d8-87d3-07a11e95125e)
 
 The plot above indicates the first two principal components (PC1 and PC2), indicating the voting patterns of different countries regarding the issue of Palestinian conflict. 
 First and foremost, we can look at the outliers. United States, Israel, and Czechoslovakia seem to have voted significantly different from the rest of the countries which seem to belong to certain clusters. Such unique voting patterns may not be well represented by the first two principal components, i.e., PC1 and PC2. For Israel, it would be understandable considering that the voting impacts them directly. Israel and the United States seem not to be very far from each other on the plot, which could imply that they voted similarly on most issues. 
